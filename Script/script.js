@@ -68,7 +68,7 @@ function retrieveUserInput(type_of_item, item_number, item_value, number_of_item
     let input_submit = document.getElementById("input_submit");
 
     // Display the challenge to the user
-    instruction.innerHTML = `Write the ${type_of_item} #${item_number} out of ${number_of_item} : <span class="text_to_write">${item_value}</span>`;
+    instruction.innerHTML = `${type_of_item} #${item_number} out of ${number_of_item} : <span class="text_to_write">${item_value}</span>`;
 
     // For user pressing Enter key
     user_input.addEventListener("keypress", event => {
