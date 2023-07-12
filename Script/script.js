@@ -70,18 +70,19 @@ function retrieveUserInput(type_of_item, item_number, item_value, number_of_item
     // Display the challenge to the user
     instruction.innerHTML = `${type_of_item} #${item_number} out of ${number_of_item} : <span class="text_to_write">${item_value}</span>`;
 
-    // For user pressing Enter key
     user_input.addEventListener("keypress", event => {
-      if (event.key === "Enter") {
-        input = user_input.value;
+      if (user_input.value != "") {
+        // For user pressing Enter key
+        if (event.key === "Enter") {
+          input = user_input.value;
         resolve(input);
+        }
+        // For user clicking on the submit button
+        input_submit.addEventListener("click", () => {
+          input = user_input.value;
+          resolve(input);
+        });
       }
-    });
-
-    // For user clicking on the submit button
-    input_submit.addEventListener("click", () => {
-      input = user_input.value;
-      resolve(input);
     });
   });
 }
