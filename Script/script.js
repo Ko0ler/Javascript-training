@@ -100,15 +100,11 @@ async function startGame() {
   let challenge_number = document.getElementById("challenge_number");
   let answer_review = document.getElementById("review");
   let current_info = document.getElementById("info");
+  let final_info = document.getElementById("final_info");
   let final_score = document.getElementById("final_score");
+  let final_time = document.getElementById("final_time");
   let starting_time = Date.now();
   let time_spent;
-
-  // Clear previous game state
-  challenge_number.textContent = "";
-  answer_review.textContent = "";
-  current_info.textContent = "";
-  final_score.textContent = "";
 
   // Get the selected game mode from the user
   game_choice = await getSelectedMode();
@@ -128,11 +124,11 @@ async function startGame() {
       // Check the user's answer and update the score
       if (answer === item_value | answer === item_value + " ") {
         answer_review.setAttribute("id", "win");
-        answer_review.textContent = "Great!";
+        answer_review.textContent = "Let's go !!";
         score += 1;
       } else {
         answer_review.setAttribute("id", "loose");
-        answer_review.textContent = "Wrong!";
+        answer_review.textContent = "You suck!";
       }
 
       current_info.textContent = `Current score : ${score}`;
@@ -141,47 +137,52 @@ async function startGame() {
       let inserted_text = document.getElementById("user_input");
       inserted_text.value = "";
 
-      // Display the time spent and the final score at the end of the game
-      if (item_number === number_of_item) {
-        time_spent = (Date.now() - starting_time)/1000;
-        current_info.innerHTML = `<u>Time spent</u> : ${time_spent} seconds`;
-        final_score.setAttribute("id", "final_score");
-        final_score.textContent = `Final score : ${score}/${number_of_item}`;
-      }
-
       // Clear instructions
-      let instruction = document.getElementById("instruction");
-      instruction.textContent = "";
+      // let instruction = document.getElementById("instruction");
+      // instruction.textContent = "";
+
+      // // Hide the submit button after the game ends
+      // let submit_button = document.getElementById("input_submit");
+      // submit_button.innerHTML = ``;
     }
 
-    // Hide the submit button after the game ends
-    let submit_button = document.getElementById("input_submit");
-    submit_button.innerHTML = ``;
+    // Display the time spent and the final score at the end of the game
+    let main = document.querySelector("main");
+    main.innerHTML = ``; // Clear main content
+    time_spent = (Date.now() - starting_time)/1000;
+    final_time.innerHTML = `Time spent : <strong>${time_spent} seconds</strong>`;
+    final_score.setAttribute("id", "final_score");
+    final_score.textContent = `Final score : ${score}/${number_of_item}`;
+    final_info.setAttribute("class", "popup");
+    
+    retryGame(time_spent);
   }
 }
 
 // Function to retry the game
-function retryGame() {
+function retryGame(time_spent) {
   let retry_button = document.createElement("button");
   retry_button.id = "retry";
   retry_button.textContent = "Retry";
-  let create_retry_button = document.getElementById("input_field");
+  let create_retry_button = document.getElementById("final_info");
   create_retry_button.appendChild(retry_button);
   let retry = document.getElementById("retry");
   retry.addEventListener("click", () => {
     // Reset the game by reloading the page
-    document.body.innerHTML = ``;
-    run();
+    document.body.innerHTML = initial_page;
+    // Add score to score board
+    let last_score = document.getElementById("last_score");
+    last_score.innerHTML = `
+    <p>Last Score : ${time_spent}
+    `
+    startGame();
   });
 }
 
 // Main function to run the game
-async function run() {
-  // Restore the initial HTML content
-  document.body.innerHTML = initial_page;
+function run() {
   try {
-    await startGame();
-    retryGame();
+    startGame();
   } catch (error) {
     document.body.innerHTML = `
     <h4>Some errors occurred: ${error}<h4>

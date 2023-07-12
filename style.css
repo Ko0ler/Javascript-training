@@ -38,9 +38,38 @@ main {
     color: red;
 }
 
+.popup {
+    animation: fadein 1s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: #ffdcc3;
+    border-radius: 15%;
+    padding: 5%;
+}
+
 #final_score {
-    animation: fadein 1.5s alternate-reverse 0.3s infinite;
     color: rgb(255, 136, 0);
+}
+
+#final_time {
+    animation: fadein 1.5s alternate-reverse 0.3s infinite;
+    color: rgb(117, 117, 255);
+}
+
+#last_score {
+    padding: 0.3%;
+}
+
+button {
+    margin: 0.5%;
+    font-size: medium;
+    color: rgb(97, 97, 97);
+    border-color: silver;
+    border-width: 0.2em;
+    border-radius: 15%;
 }
 
 /* 
