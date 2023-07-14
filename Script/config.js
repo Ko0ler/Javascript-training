@@ -12,7 +12,7 @@ const WORD_LIST = {
 // Phrase Lists
 const PHRASE_LIST = {
   "Facts": [
-    "Did you know that Michael Jackson was born in the Ivory Coast?",
+    "Did you know that Michael Jackson is originated from Ivory Coast?",
     "Everything we see and know about the universe is millions of years old.",
     "Life is tough.",
     "Elephants are the only animals that can't jump.",
