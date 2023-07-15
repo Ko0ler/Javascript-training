@@ -194,7 +194,8 @@ function run() {
     });
   } catch (error) {
     document.body.innerHTML = `
-    <h4>Some errors occurred: ${error}<h4>
+    <h3>Some errors occurred!<h3>
+    <h4>${error}</h4>
     `;
     console.log(error);
   }
