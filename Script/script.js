@@ -159,11 +159,12 @@ async function startGame(type_of_item, game_context) {
   final_score.textContent = `Final score : ${score}/${number_of_item}`;
   final_info.setAttribute("class", "popup");
   
-  retryGame(time_spent);
+  score = `${score}/${number_of_item}`;
+  retryGame(time_spent, score, game_context);
 }
 
 // Function to retry the game
-function retryGame(time_spent) {
+function retryGame(time_spent, score, game_context) {
   let retry_button = document.createElement("button");
   retry_button.id = "retry";
   retry_button.textContent = "Retry";
@@ -176,7 +177,7 @@ function retryGame(time_spent) {
     // Add score to score board
     let last_score = document.getElementById("last_score");
     last_score.innerHTML = `
-    <p>Last Score : ${time_spent}</p>
+    <p>Last Score : ${time_spent} seconds (${score}), ${game_context}</p>
     `;
     run();
   });
@@ -186,6 +187,11 @@ function retryGame(time_spent) {
 function run() {
   try {
     chooseGameMode();
+    window.addEventListener('beforeunload', function(event) {
+      event.preventDefault();
+      event.returnValue = '';
+      alert('Are you sure you want to leave?');
+    });
   } catch (error) {
     document.body.innerHTML = `
     <h4>Some errors occurred: ${error}<h4>

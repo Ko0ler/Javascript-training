@@ -54,13 +54,13 @@ main {
     padding: 5%;
 }
 
-#final_score {
-    color: rgb(255, 136, 0);
+#final_time {
+    color: rgb(117, 117, 255);
 }
 
-#final_time {
+#final_score {
     animation: fadein 1.5s alternate-reverse 0.3s infinite;
-    color: rgb(117, 117, 255);
+    color: rgb(255, 136, 0);
 }
 
 #last_score {
