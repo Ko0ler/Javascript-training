@@ -137,7 +137,7 @@ async function startGame(type_of_item, game_context) {
     answer_review.removeAttribute("id");
   
     // Check the user's answer and update the score
-    if (answer === item_value || answer === item_value + " ") {
+    if (answer.trim() === item_value) {
       correctAnswer();
     } else {
       wrongAnswer();
