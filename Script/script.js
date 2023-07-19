@@ -41,7 +41,7 @@ function chooseGameMode() {
     element.addEventListener("change", getContentType);
   });
 
-  // Event listener for the content selection
+  // Event listener for the context selection
   item_context.addEventListener("change", event => {
     selected_mode = event.target.value;
     // Add a start button
