@@ -1,10 +1,10 @@
-let initial_page = document.body.innerHTML;
+const initial_page = document.body.innerHTML;
 
 // Function to let the user choose the game mode
 function chooseGameMode() {
+  const type_of_item_choice = document.querySelectorAll('input[name="content_type"]');
+  const item_context = document.getElementById("context");
   let type_of_item;
-  let type_of_item_choice = document.querySelectorAll('input[name="content_type"]');
-  let item_context = document.getElementById("context");
   let list_of_context = [];
   let selected_mode;
 
@@ -45,12 +45,12 @@ function chooseGameMode() {
   item_context.addEventListener("change", event => {
     selected_mode = event.target.value;
     // Add a start button
-    let start_button = document.getElementById("content_type");
+    const start_button = document.getElementById("content_type");
     start_button.innerHTML = `
     <button type="button" id="start_button">Start</button>
     `;
   
-    let start = document.getElementById("start_button");
+    const start = document.getElementById("start_button");
     start.addEventListener("click", () => {
       startGame(type_of_item, selected_mode);
     });
@@ -60,10 +60,10 @@ function chooseGameMode() {
 // Function to retrieve user input for a specific item
 function retrieveUserInput(game_context, item_number, item_value, number_of_item) {
   return new Promise((resolve, reject) => {
+    const instruction = document.getElementById("instruction");
+    const user_input = document.getElementById("user_input");
+    const input_submit = document.getElementById("input_submit");
     let input;
-    let instruction = document.getElementById("instruction");
-    let user_input = document.getElementById("user_input");
-    let input_submit = document.getElementById("input_submit");
 
     // Display the challenge to the user
     instruction.innerHTML = `${game_context} #${item_number} out of ${number_of_item} : <span class="text_to_write">${item_value}</span>`;
@@ -91,6 +91,12 @@ function retrieveUserInput(game_context, item_number, item_value, number_of_item
 
 // Main game function
 async function startGame(type_of_item, game_context) {
+  const challenge_number = document.getElementById("challenge_number");
+  const answer_review = document.getElementById("review");
+  const current_info = document.getElementById("info");
+  const final_info = document.getElementById("final_info");
+  const final_score = document.getElementById("final_score");
+  const final_time = document.getElementById("final_time");
   let type = {};
   let list_of_item = [];
   let item_number = 1;
@@ -98,17 +104,11 @@ async function startGame(type_of_item, game_context) {
   let item_value = "";
   let answer = "";
   let score = 0;
-  let challenge_number = document.getElementById("challenge_number");
-  let answer_review = document.getElementById("review");
-  let current_info = document.getElementById("info");
-  let final_info = document.getElementById("final_info");
-  let final_score = document.getElementById("final_score");
-  let final_time = document.getElementById("final_time");
   let starting_time = Date.now();
   let time_spent;
 
-  let hide_choice = document.getElementById("choice_section");
-  let show_gameplay = document.getElementById("gampelay_section");
+  const hide_choice = document.getElementById("choice_section");
+  const show_gameplay = document.getElementById("gampelay_section");
   hide_choice.setAttribute("class", "hide_target");
   show_gameplay.removeAttribute("class", "hide_target");
   
@@ -146,12 +146,12 @@ async function startGame(type_of_item, game_context) {
     current_info.textContent = `Current score : ${score}`;
 
     // Clear the user input field for the next challenge
-    let inserted_text = document.getElementById("user_input");
+    const inserted_text = document.getElementById("user_input");
     inserted_text.value = "";
   }
 
   // Display the time spent and the final score at the end of the game
-  let main = document.querySelector("main");
+  const main = document.querySelector("main");
   main.innerHTML = ``; // Clear main content
   time_spent = (Date.now() - starting_time)/1000;
   final_time.innerHTML = `Time spent : <strong>${time_spent} seconds</strong>`;
@@ -165,12 +165,12 @@ async function startGame(type_of_item, game_context) {
 
 // Function to retry the game
 function retryGame(time_spent, score, game_context) {
-  let retry_button = document.createElement("button");
+  const retry_button = document.createElement("button");
   retry_button.id = "retry";
   retry_button.textContent = "Retry";
-  let create_retry_button = document.getElementById("final_info");
+  const create_retry_button = document.getElementById("final_info");
   create_retry_button.appendChild(retry_button);
-  let retry = document.getElementById("retry");
+  const retry = document.getElementById("retry");
   retry.addEventListener("click", () => {
     // Reset the game by reloading the page
     document.body.innerHTML = initial_page;
